@@ -1,0 +1,12 @@
+<!-- OPC 1 (BASICA): <button type="button" class="btn btn-primary" (click)="habilitar = !habilitar">{{habilitar ? 'Ocultar' : 'Mostrar'}}</button> -->
+<!-- OPC 2 (NORMAL): Se utiliza a traves de clase .component -->
+<button type="button" class="btn btn-primary" (click)="changeHabilitar()">{{habilitar ? 'Ocultar' : 'Mostrar'}}</button>
+<div class="card">
+  <!-- <img class="card-img-top" data-src="holder.js/100x180/?text=Image cap" alt="Card image cap"> -->
+  <div class="card-body">
+    <h4 class="card-title">Listado Curso</h4>
+  </div>
+  <ul class="list-group list-group-flush" *ngIf="habilitar">
+    <li class="list-group-item" *ngFor="let curso of listaCurso;">{{curso}}</li>
+  </ul>
+</div>
