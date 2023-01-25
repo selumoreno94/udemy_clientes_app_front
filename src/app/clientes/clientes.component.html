@@ -4,7 +4,9 @@
   </div>
   <div class="card-body">
     <h4 class="card-title">Listado Clientes</h4>
-
+    <div class="my-2 text-left">
+      <button type="button" class="btn btn-rounded btn-primary" [routerLink]="['/clientes/form']">Crear cliente</button>
+    </div>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -14,6 +16,7 @@
           <th>edad</th>
           <th>email</th>
           <th>Registrado</th>
+          <th>Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +27,7 @@
           <td>{{cli.edad}}</td>
           <td>{{cli.email}}</td>
           <td>{{cli.createAt}}</td>
+          <td> <button name="button" id="buttonEdit" class="btn btn-primary" type="button" [routerLink]="['/clientes/form', cli.id]">Editar </button></td>
         </tr>
       </tbody>
     </table>
