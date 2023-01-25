@@ -1,0 +1,58 @@
+<div class="card bg-dark text-white">
+  <div class="card-header">
+    {{ getTitulo() }}
+  </div>
+  <div class="container">
+    <ng-form>
+      <!-- NOMBRE -->
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Nombre: </label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="nombre" aria-describedby="helpId"  [(ngModel)]="getCliente().nombre">
+        </div>
+      </div>
+    </div>
+
+    <!-- APELLIDOS -->
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Apellidos: </label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="apellido" aria-describedby="helpId"  [(ngModel)]="getCliente().apellido">
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Email: </label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="email" aria-describedby="helpId" [(ngModel)]="getCliente().email">
+        </div>
+      </div>
+    </div>
+
+    <!-- EDAD -->
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Edad: </label>
+        <div class="col-sm-6">
+          <input type="number" min="1" class="form-control" name="edad" aria-describedby="helpId"  [(ngModel)]="getCliente().edad">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-6">
+        <button type="submit" class="btn btn-primary" (click)="create()" *ngIf="!getCliente().id else elseBlock">Crear</button>
+        <ng-template #elseBlock>
+          <button type="submit" class="btn btn-primary" (click)="update()">Guardar</button>
+        </ng-template>
+      </div>
+    </div>
+    </ng-form>
+  </div>
+
+</div>

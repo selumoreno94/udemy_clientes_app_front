@@ -14,10 +14,19 @@ import { ClienteService } from './clientes/cliente.service';
 //Import Routing
 import { RouterModule, Routes } from '@angular/router';
 
+// Import HttpClient - para implementacion de comunicacion con backend - metodos get/put/post/update
+import { HttpClientModule } from "@angular/common/http";
+
+// Import de librerias form
+import { FormComponent } from './clientes/form.component';
+import { FormsModule, NgForm } from '@angular/forms';
+
 const routes: Routes = [
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},
   {path: 'directivas', component: DirectivaComponent},
-  {path: 'clientes', component: ClientesComponent}
+  {path: 'clientes', component: ClientesComponent},
+  {path: 'clientes/form', component: FormComponent},
+  {path: 'clientes/form/:id', component: FormComponent},
 ];
 
 @NgModule({
@@ -26,11 +35,15 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     DirectivaComponent,
-    ClientesComponent
+    ClientesComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    FormsModule,
+    //NgForm
   ],
   exports: [
     RouterModule
