@@ -7,7 +7,7 @@
     <div class="my-2 text-left">
       <button type="button" class="btn btn-rounded btn-primary" [routerLink]="['/clientes/form']">Crear cliente</button>
     </div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
       <thead>
         <tr>
           <th>id</th>
@@ -16,7 +16,7 @@
           <th>edad</th>
           <th>email</th>
           <th>Registrado</th>
-          <th>Editar</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -27,7 +27,10 @@
           <td>{{cli.edad}}</td>
           <td>{{cli.email}}</td>
           <td>{{cli.createAt}}</td>
-          <td> <button name="button" id="buttonEdit" class="btn btn-primary" type="button" [routerLink]="['/clientes/form', cli.id]">Editar </button></td>
+          <td> 
+              <button name="button" id="buttonDelete" class="btn btn-primary" type="button" [routerLink]="['/clientes/form', cli.id]">Editar </button>
+              <button name="button" id="buttonDelete" class="btn btn-danger" type="button" (click)="delete(cli)">Eliminar </button>
+          </td>
         </tr>
       </tbody>
     </table>

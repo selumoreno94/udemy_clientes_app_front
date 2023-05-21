@@ -45,4 +45,8 @@ export class ClienteService {
     return this.http.put<Cliente>(this.staticUrlBasic + `/clientes/${cliente.id}`, cliente, {headers: this.httpHeaders});
   }
 
+  delete(clienteId: number) : Observable<Cliente> {
+    return this.http.delete<Cliente>(this.staticUrlBasic + `/clientes/${clienteId}`, {headers: this.httpHeaders})
+  }
+
 }
