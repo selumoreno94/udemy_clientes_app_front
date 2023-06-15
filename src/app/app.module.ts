@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 // Imports Componentes
@@ -20,6 +20,11 @@ import { HttpClientModule } from "@angular/common/http";
 // Import de librerias form
 import { FormComponent } from './clientes/form.component';
 import { FormsModule, NgForm } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
+
+
+registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},
@@ -48,7 +53,7 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [ClienteService],
+  providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 

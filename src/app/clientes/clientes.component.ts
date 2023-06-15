@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
-
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-clientes',
@@ -15,7 +15,15 @@ export class ClientesComponent implements OnInit {
   constructor(private clienteService: ClienteService) {}
 
   ngOnInit(): void {
-    this.clienteService.getClientes().subscribe(
+    this.clienteService.getClientes().pipe(
+      tap( cliente_Tap3 => {
+        this.clientes = cliente_Tap3
+        console.log("ClienteService - Tap3 (Cliente)");
+        cliente_Tap3.forEach( cliIt => {
+          console.log(cliIt.nombre);
+        });
+      })
+    ).subscribe(
       //OPC 1 (directa) clientes => this.clientes = clientes
       //OPC2 (Function - OLD)
       /* function (clientes)  {
@@ -25,7 +33,12 @@ export class ClientesComponent implements OnInit {
       /* (clientes) => {
         this.clientes = clientes
       } */
-      clientes => this.clientes = clientes
+
+      /*
+      Al meter el tap, se puede subir esto alli.. aunque no es un sub, sino un obser 
+      clientes => this.clientes = clientes 
+      */
+      clientes => this.clientes = clientes 
     );
   }
 

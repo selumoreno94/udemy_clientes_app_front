@@ -1,15 +1,32 @@
+<div class="container-fluid !direction !spacing" *ngIf="getErrores().length > 0">
+  <ul class="alert alert-danger">
+    <li *ngFor="let error of getErrores()">
+      {{ error }}
+    </li>
+  </ul>
+</div>
+
 <div class="card bg-dark text-white">
   <div class="card-header">
     {{ getTitulo() }}
   </div>
   <div class="container">
-    <ng-form>
+    <ng-form #clienteForm="ngForm">
       <!-- NOMBRE -->
     <div class="card-body">
       <div class="form-group row">
         <label for="" class="col-form-label col-sm-2">Nombre: </label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="nombre" aria-describedby="helpId"  [(ngModel)]="getCliente().nombre">
+          <!-- <input type="text" class="form-control" name="nombre" aria-describedby="helpId" minlength="3" required="true"  [(ngModel)]="getCliente().nombre" #nombre="ngModel"> -->
+          <input type="text" class="form-control" name="nombre" aria-describedby="helpId" [(ngModel)]="getCliente().nombre" #nombre="ngModel">
+          <div class="alert alert-danger" role="alert" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              El nombre del cliente es obligatorio.
+            </div>
+            <div *ngIf="nombre.errors.minlength">
+              El tamaño minimo es de 3 caracteres.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -19,7 +36,13 @@
       <div class="form-group row">
         <label for="" class="col-form-label col-sm-2">Apellidos: </label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="apellido" aria-describedby="helpId"  [(ngModel)]="getCliente().apellido">
+          <!-- <input type="text" class="form-control" name="apellido" aria-describedby="helpId" required="true" [(ngModel)]="getCliente().apellido" #apellido="ngModel"> -->
+          <input type="text" class="form-control" name="apellido" aria-describedby="helpId" [(ngModel)]="getCliente().apellido" #apellido="ngModel">
+          <div class="alert alert-danger" role="alert" *ngIf="apellido.invalid && (apellido.dirty && apellido.touched)">
+            <div *ngIf="apellido.errors.required">
+              El apellido del cliente es obligatorio.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -29,7 +52,16 @@
       <div class="form-group row">
         <label for="" class="col-form-label col-sm-2">Email: </label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="email" aria-describedby="helpId" [(ngModel)]="getCliente().email">
+          <!-- <input type="text" class="form-control" name="email" aria-describedby="helpId" required="true" email [(ngModel)]="getCliente().email" #mail="ngModel"> -->   
+          <input type="text" class="form-control" name="email" aria-describedby="helpId" [(ngModel)]="getCliente().email" #mail="ngModel">
+          <div class="alert alert-danger" role="alert" *ngIf="mail.invalid && (mail.dirty && mail.touched)">
+            <div *ngIf="mail.errors.required">
+              El email del cliente es obligatorio.
+            </div>
+            <div *ngIf="mail.errors.email">
+              Email debe tener un formato valido
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,16 +71,17 @@
       <div class="form-group row">
         <label for="" class="col-form-label col-sm-2">Edad: </label>
         <div class="col-sm-6">
-          <input type="number" min="1" class="form-control" name="edad" aria-describedby="helpId"  [(ngModel)]="getCliente().edad">
+          <!-- <input type="number" class="form-control" name="edad" aria-describedby="helpId" minlength="1" required="true"  [(ngModel)]="getCliente().edad"> -->
+          <input type="number" class="form-control" name="edad" aria-describedby="helpId"  [(ngModel)]="getCliente().edad">
         </div>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-sm-6">
-        <button type="submit" class="btn btn-primary" (click)="create()" *ngIf="!getCliente().id else elseBlock">Crear</button>
+        <button type="submit" class="btn btn-primary" (click)="create()" *ngIf="!getCliente().id else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
         <ng-template #elseBlock>
-          <button type="submit" class="btn btn-primary" (click)="update()">Guardar</button>
+          <button type="submit" class="btn btn-primary" (click)="update()" [disabled]="!clienteForm.form.valid">Guardar</button>
         </ng-template>
       </div>
     </div>

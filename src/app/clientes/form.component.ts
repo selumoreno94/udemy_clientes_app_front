@@ -11,8 +11,11 @@ import { ClienteService } from './cliente.service';
 })
 export class FormComponent implements OnInit {
 
-  private cliente : Cliente = new Cliente()
-  private titulo : string = "Crear cliente"
+  private cliente : Cliente = new Cliente();
+  private titulo : string = "Crear cliente";
+  private errores: string[] = [];
+
+
   constructor(
     private clienteService : ClienteService, 
     private router : Router, 
@@ -32,7 +35,16 @@ export class FormComponent implements OnInit {
       cliente => {
         this.router.navigate(['/clientes'])
         Swal.fire("Nuevo cliente", `Cliente ${cliente.nombre} creado con exito`, 'success')
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo de error desde backend: ' + err.status + ' | MSG = ' + err.error.errors);
       }
+      /* //PONIENDOLO CON ANY 
+      jsonResp => {
+        this.router.navigate(['/clientes'])
+        Swal.fire("Nuevo cliente", `${jsonResp.mensaje}: ${jsonResp.cliente.nombre}`, 'success')
+      } */
     )
   }
 
@@ -42,6 +54,10 @@ export class FormComponent implements OnInit {
 
   public getTitulo() : string {
     return this.titulo
+  }
+
+  public getErrores() : string[] {
+    return this.errores;
   }
 
   cargarCliente() : void {
@@ -57,9 +73,18 @@ export class FormComponent implements OnInit {
   }
 
   update():void {
-    this.clienteService.update(this.cliente).subscribe(clienteResp => { 
+    this.clienteService.update(this.cliente).subscribe(
+      /* clienteResp => { 
         this.router.navigate(["/clientes"]);
         Swal.fire('Cliente Actualizado', `Cliente ${clienteResp.nombre} actualizado con exito`, 'success');
+      } */
+      jsonResp => {
+        this.router.navigate(['/clientes'])
+        Swal.fire("Nuevo cliente", `${jsonResp.mensaje}: ${jsonResp.cliente.nombre}`, 'success')
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo de error desde backend: ' + err.status + ' | MSG = ' + err.error.errors);
       }
     );
   }

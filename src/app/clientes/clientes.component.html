@@ -7,6 +7,9 @@
     <div class="my-2 text-left">
       <button type="button" class="btn btn-rounded btn-primary" [routerLink]="['/clientes/form']">Crear cliente</button>
     </div>
+    <div class="container-fluid !direction !spacing" *ngIf="clientes?.length == 0" class= "alert alert-info">
+      No hay clientes en la base de datos
+    </div>
     <table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
       <thead>
         <tr>
@@ -23,10 +26,10 @@
         <tr *ngFor="let cli of clientes">
           <td>{{cli.id}}</td>
           <td>{{cli.nombre}}</td>
-          <td>{{cli.apellido}}</td>
+          <td>{{cli.apellido | uppercase }}</td>
           <td>{{cli.edad}}</td>
           <td>{{cli.email}}</td>
-          <td>{{cli.createAt}}</td>
+          <td>{{cli.createAt | date:"EEEE dd, MMMM yyyy" }}</td>
           <td> 
               <button name="button" id="buttonDelete" class="btn btn-primary" type="button" [routerLink]="['/clientes/form', cli.id]">Editar </button>
               <button name="button" id="buttonDelete" class="btn btn-danger" type="button" (click)="delete(cli)">Eliminar </button>
